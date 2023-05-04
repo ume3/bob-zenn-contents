@@ -1,5 +1,5 @@
 ---
-title: "GitHubにgit pushするためだけのFine-grained PATsの権限設定のやり方"
+title: "Fine-grained personal access tokensを使ってGitHubにgit pushする最小設定"
 emoji: "⛳"
 type: "tech"
 topics: ["github","git","token"]
@@ -18,11 +18,11 @@ fatal: unable to access 'https://github.com/ume3/bob-zenn-contents.git/': The re
 ```
 
 よくある対応はGitHub名+パスワードによる認証。ではなく、[アクセストークンを用います](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-fine-grained-personal-access-token)。これは、[2021年8月から認証方式の変化](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/)の影響です。
-さらに[2022年10月](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)には、新しい`Personal access tokens (PATs)`が登場しました。
+さらに[2022年10月](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)には、新しい`Personal access tokens (PAT)`が登場しました。
 
 久しぶりにリポジトリをこしらえて`git pull`するとこの変化を目の当たりにしたのでまとめてみます。
 
-### 新しいPATsとは
+### 新しいPATとは
 fine-grained personal access tokens in Public Betaのことです。
 
 [personal access tokenの種類](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#personal-access-token-%E3%81%AE%E7%A8%AE%E9%A1%9E)より以下、引用します。
