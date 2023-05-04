@@ -3,7 +3,7 @@ title: "Zenn CLIで初めて記事を書いてみた(2023年5月版)"
 emoji: "🎁"
 type: "idea"
 topics: [zenn]
-published: false
+published: true
 ---
 
 ## はじめに
