@@ -72,11 +72,9 @@ error: failed to push some refs to 'https://github.com/ume3/bob-zenn-contents.gi
 
 - Workflows (Update GitHub Action workflow files.)
 
-こちらも、`Access: Read and Write`の権限を付与することで`git pull`できるようになりました。最終的な設定は以下となります。
+こちらも、`Access: Read and Write`の権限を付与することで`git push`ができるようになりました。最終的な設定は以下となります。
 
 ![](/images/articles/overview_last.jpg)
 
 ### おわりに
-personal access tokens (classic) でしか権限を設定したことがないので、いざ新しいやり方をしたときにつまずきました。意外とネットで検索しても出てこなかったので今回まとめております。誰かの役に立てばうれしいです。
-
-
+personal access tokens (classic) でしか権限を設定したことがないので、いざ新しいやり方をしたときにいろいろとつまずきました。意外とネットで検索しても出てこなかったので今回まとめております。誰かの役に立てばうれしいです。
