@@ -56,7 +56,7 @@ classicであれば、そのやりかたが染み付いていたのですが、�
 
 ![](/images/articles/repo_permissions_simple.jpg)
 
-この設定になっていればOKです。
+この設定になっていればOKです。なお、`Read access to metadata`は必須設定で自動付与されます。
 あとは発行されたtokenをコピーして、git pullの際に利用（設定方法はいろいろありますが今回は省略）すればOKです。
 
 ### おわりに
