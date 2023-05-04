@@ -17,13 +17,13 @@ remote: Permission to ume3/bob-zenn-contents.git denied to ume3.
 fatal: unable to access 'https://github.com/ume3/bob-zenn-contents.git/': The requested URL returned error: 403
 ```
 
-あるある対応はGitHub名+パスワードによる認証。ではなく、[アクセストークンを用います](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-fine-grained-personal-access-token)。これは、[2021年8月から認証方式の変化](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/)の影響です。
+よくある対応はGitHub名+パスワードによる認証。ではなく、[アクセストークンを用います](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-fine-grained-personal-access-token)。これは、[2021年8月から認証方式の変化](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/)の影響です。
 さらに[2022年10月](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)には、新しい`Personal access tokens (PATs)`が登場しました。
 
 久しぶりにリポジトリをこしらえて`git pull`するとこの変化を目の当たりにしたのでまとめてみます。
 
 ### 新しいPATsとは
-fine-grained personal access tokens in Public Beta のことです。
+fine-grained personal access tokens in Public Betaのことです。
 
 [personal access tokenの種類](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#personal-access-token-%E3%81%AE%E7%A8%AE%E9%A1%9E)より以下、引用します。
 
