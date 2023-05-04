@@ -13,7 +13,7 @@
             },
             "no-doubled-joshi": {
                 "strict": false,
-                "allow": ["か","が"]
+                "allow": ["か","が","に"]
             },
             "sentence-length": false,
             "ja-no-weak-phrase": false,
