@@ -27,6 +27,10 @@ jobs:
           key: node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             node-
+
+      - name: Install textlint
+        run:  'npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev'
+
       - name: textlint-github-pr-review
         uses: tsuyoshicho/action-textlint@v3
         with:
