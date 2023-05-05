@@ -1,0 +1,39 @@
+name: reviewdog
+on: [pull_request]
+jobs:
+  textlint:
+    name: runner / textlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup Node/npm
+        uses: actions/setup-node@v3
+
+      # package-lock.json生成のため、npm installを実行する
+      - name: Install Dependencies
+        run: npm install
+
+      # キャッシュ取得
+      - name: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-
+
+      - name: Install textlint
+        run:  'npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev'
+
+      - name: textlint-github-pr-review
+        uses: tsuyoshicho/action-textlint@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          textlint_flags: "articles/**"
+
