@@ -13,6 +13,10 @@ jobs:
         with:
           node-version: 18
 
+      # package-lock.json生成のため、npm installを実行する
+      - name: Install Dependencies
+        run: npm install
+
       # キャッシュ取得
       - name: cache-node-modules
         uses: actions/cache@v3
@@ -23,7 +27,6 @@ jobs:
           key: node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             node-
-
       - name: textlint-github-pr-review
         uses: tsuyoshicho/action-textlint@v3
         with:
@@ -31,3 +34,4 @@ jobs:
           reporter: github-pr-review
           level: warning
           textlint_flags: "articles/**"
+
