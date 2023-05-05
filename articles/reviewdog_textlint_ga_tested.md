@@ -17,7 +17,7 @@ textlintを導入して校正ができるようになりました。これは、
 - [GitHub ActionsでZennブログの校正を自動化してみた](https://zenn.dev/yuta28/articles/blog-lint-ci-reviewdog)
 
 ### textlint + reviewdog
-わざとここでまちがえてみる
+わざとここでまちがえてみ,る
 
 
 ### vscode + textlint + zenn
