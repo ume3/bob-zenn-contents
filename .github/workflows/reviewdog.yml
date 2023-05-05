@@ -10,8 +10,6 @@ jobs:
 
       - name: Setup Node/npm
         uses: actions/setup-node@v3
-        with:
-          node-version: 18
 
       # package-lock.json生成のため、npm installを実行する
       - name: Install Dependencies
