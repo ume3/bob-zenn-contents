@@ -20,7 +20,7 @@ fatal: unable to access 'https://github.com/ume3/bob-zenn-contents.git/': The re
 よくある対応はGitHub名+パスワードによる認証。ではなく、[アクセストークンを用います](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-fine-grained-personal-access-token)。これは、[2021年8月から認証方式の変化](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/)の影響です。
 さらに[2022年10月](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)には、新しい`Personal access tokens (PAT)`が登場しました。
 
-久しぶりにリポジトリをこしらえて`git pull`するとこの変化を目の当たりにしたのでまとめてみます。
+久しぶりにリポジトリをこしらえて`git push`するとこの変化を目の当たりにしたのでまとめてみます。
 
 ### 新しいPATとは
 fine-grained personal access tokens in Public Betaのことです。
@@ -57,7 +57,7 @@ classicであれば、そのやりかたが染み付いていたのですが、�
 ![](/images/articles/repo_permissions_simple.jpg)
 
 この設定になっていればOKです。なお、`Read access to metadata`は必須設定で自動付与されます。
-あとは発行されたtokenをコピーして、git pullの際に利用（設定方法はいろいろありますが今回は省略）すればOKです。
+あとは発行されたtokenをコピーして、git pushの際に利用（設定方法はいろいろありますが今回は省略）すればOKです。
 
 #### workflowsにも設定変更を適用したいとき
 なお、このtokenの権限だと`.github/workflows`を編集する権限がありません。
@@ -67,7 +67,7 @@ classicであれば、そのやりかたが染み付いていたのですが、�
 error: failed to push some refs to 'https://github.com/ume3/bob-zenn-contents.git'
 ```
 
-このようなエラーが出て、`git pull`でworkflowsのymlを保存できませんでした。
+このようなエラーが出て、`git push`でworkflowsのymlを保存できませんでした。
 以下の権限設定が最下部にありましたので付与すると動きます。
 
 - Workflows (Update GitHub Action workflow files.)
