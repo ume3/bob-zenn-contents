@@ -8,7 +8,7 @@ published_at: 2023-05-08 10:00
 ---
 
 ## はじめに
-textlint+reviewdog環境を用意してみました。今度は、vscodeを使った執筆環境にしたかったので、vscode-textlintとZennのpluginを導入しました。その環境設定をまとめた記事になります。
+textlint+reviewdog環境を用意してみました。今度は、VSCodeを使った執筆環境にしたかったので、vscode-textlintとZennのpluginを導入しました。その環境設定をまとめた記事になります。
 
 ### 想定環境
 - ローカルを想定
