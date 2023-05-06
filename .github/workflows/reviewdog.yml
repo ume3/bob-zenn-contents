@@ -32,8 +32,8 @@ jobs:
       - name: textlint-github-pr-review
         uses: tsuyoshicho/action-textlint@v3
         with:
-          github_token: ${{ secrets.github_token }}
+          github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
           reporter: github-pr-review
           level: warning
-          textlint_flags: "articles/**"
+          textlint_flags: "{book,articles}/**"
 
