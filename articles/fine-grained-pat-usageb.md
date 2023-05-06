@@ -7,7 +7,7 @@ published: true
 published_at: 2023-05-06 10:00
 ---
 
-## はじめに
+# はじめに
 GitHubにCLIから`git push`するときのつまずきはいくつかあると思います。
 定番は以下のような403エラーです。
 
@@ -22,7 +22,10 @@ fatal: unable to access 'https://github.com/ume3/bob-zenn-contents.git/': The re
 
 久しぶりにリポジトリをこしらえて`git push`するとこの変化を目の当たりにしたのでまとめてみます。
 
-### 新しいPATとは
+## 参考記事
+- [Introducing fine\-grained personal access tokens for GitHub \| The GitHub Blog](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
+
+## 新しいPATとは
 fine-grained personal access tokens in Public Betaのことです。
 
 [personal access tokenの種類](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#personal-access-token-%E3%81%AE%E7%A8%AE%E9%A1%9E)より以下、引用します。
@@ -38,16 +41,13 @@ fine-grained personal access tokens in Public Betaのことです。
 このアクセストークンは適切な権限設定が必要です。
 classicであれば、そのやりかたが染み付いていたのですが、今回は新しいやり方で設定することにしました。
 
-### 参考記事
-- [Introducing fine\-grained personal access tokens for GitHub \| The GitHub Blog](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
-
-#### New fine-grained personal access token (Beta)
+### New fine-grained personal access token (Beta)
 やりたいことはbranchを`git push`でファイルをアップロードしたいだけです。そのための権限は最小にしたいです。
 
 まずはGitHub上で、[New fine-grained personal access token](https://github.com/settings/personal-access-tokens/new)を選択。
 マニュアルと参考記事より、`Repository access`は、`Only select repositories`を選択。`Permissions`をカスタマイズします。
 
-#### 最小設定： Repository permissionsに Read and Write access to codeするだけ
+### 最小設定： Repository permissionsに Read and Write access to codeするだけ
 `Account permissions`は設定不要です。`Repository permissions`を選択。設定する箇所は一箇所だけです。
 
 ![](/images/articles/contens_only.jpg)
@@ -59,7 +59,7 @@ classicであれば、そのやりかたが染み付いていたのですが、�
 この設定になっていればOKです。なお、`Read access to metadata`は必須設定で自動付与されます。
 あとは発行されたtokenをコピーして、git pushの際に利用（設定方法はいろいろありますが今回は省略）すればOKです。
 
-#### workflowsにも設定変更を適用したいとき
+### workflowsにも設定変更を適用したいとき
 なお、このtokenの権限だと`.github/workflows`を編集する権限がありません。
 
 ```
@@ -76,5 +76,5 @@ error: failed to push some refs to 'https://github.com/ume3/bob-zenn-contents.gi
 
 ![](/images/articles/overview_last.jpg)
 
-### おわりに
+# おわりに
 personal access tokens (classic) でしか権限を設定したことがないので、いざ新しいやり方をしたときにいろいろとつまずきました。意外とネットで検索しても出てこなかったので今回まとめております。誰かの役に立てばうれしいです。

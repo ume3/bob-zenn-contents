@@ -7,16 +7,16 @@ published: true
 published_at: 2023-05-08 10:00
 ---
 
-## はじめに
+# はじめに
 textlint+reviewdog環境を用意してみました。今度は、VSCodeを使った執筆環境にしたかったので、vscode-textlintとZennのpluginを導入しました。その環境設定をまとめた記事になります。
 
-### 想定環境
+## 想定環境
 - ローカルを想定
   - Mac(M1)
   - VSCodeがあらかじめインストールおよび普段使しているとします
   - zennの拡張機能はブラウザ上での動作保証をしている点にご注意
 
-### 参考記事
+## 参考記事
 - [ZennのVSCode Web拡張\(β版\)をリリースしました \| What's New in Zenn](https://info.zenn.dev/release-vscode-extension)
 - [vscode\-textlint \- Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint)
 - [textlint と VS Code で始める文章校正 \- Qiita](https://qiita.com/takasp/items/22f7f72b691fda30aea2)
@@ -45,5 +45,5 @@ https://github.com/zenn-dev/zenn-vscode-extension/
 
 上記のように、リアルタイムにtextlintのチェックが入るので、Pull requests前に気づけることができて便利です。
 
-### おわりに
+# おわりに
 これで、VSCodeを使う際にZennに特化した執筆環境を整えることができました。この記事もVSCode上で書いていますが、textlintが自動的に働いて文書をチェックしてくれるので便利です。これで、だいぶ効率化された環境で文章を書くことができるようになりました。

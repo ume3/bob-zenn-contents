@@ -7,14 +7,14 @@ published: true
 published_at: 2023-05-07 10:00
 ---
 
-## はじめに
+# はじめに
 [textlintを導入して校正](https://zenn.dev/b0b/articles/ga_textlint_proofreading)ができるようになりました。これは、Zennで記事を書くときに校正を目的としています。ただ、今の状況だとtextlintを都度実行する必要があります。せっかくGitHubとZennを連携したので、これを、PullRequestのタイミングでtextlintを実行すべくGitHubActionsに取り入れることにしました。
 
-### 参考記事
+## 参考記事
 - [zenn\-cli \+ reviewdog \+ textlint \+ GitHub Actions で執筆体験を最高にする](https://zenn.dev/serima/articles/4dac7baf0b9377b0b58b#%E7%95%AA%E5%A4%96%E7%B7%A8%3A-vscode-textlint)
 - [GitHub ActionsでZennブログの校正を自動化してみた](https://zenn.dev/yuta28/articles/blog-lint-ci-reviewdog)
 
-### textlint+reviewdogのworkflow
+## textlint+reviewdogのworkflow
 textlintのGitHub Actionsに[reviewdogを想定したworkflowのサンプル](https://github.com/marketplace/actions/run-textlint-with-reviewdog#githubworkflowsreviewdogyml)が用意されています。これを使います。
 
 https://github.com/ume3/bob-zenn-contents/blob/d025a48c4287e9c2bc47e61c23f1bb2c483be52b/.github/workflows/reviewdog.yml#L32-L38
@@ -27,7 +27,7 @@ https://github.com/ume3/bob-zenn-contents/blob/d025a48c4287e9c2bc47e61c23f1bb2c4
   403 Resource not accessible by integration []
 ```
 
-#### Pull Requestに必要なworkflowの権限設定
+### Pull Requestに必要なworkflowの権限設定
 personal access tokens (classic) であれば、以下を付与したPATを用意すれば動きそうです。
 
 - repo
@@ -44,7 +44,7 @@ personal access tokens (classic) であれば、以下を付与したPATを用�
 
 それぞれはclassic設定のこちらにあてはまると判断して設定。あとは、GitHubのリポジトリのページに移動して、「Settings」-「Secrets」-「New repository secret」をクリックし、トークン名と値を入力して保存すれば使えるようになります。
 
-#### reviewdogの動作確認
+### reviewdogの動作確認
 試しにtextlintでひっかかりそうな文章を書いて、Pull requestsを実施。まずはworkflowの動作を確認。
 
 ![](/images/articles/reviewdog_run.jpg)
@@ -61,6 +61,6 @@ https://github.com/ume3/bob-zenn-contents/pull/10#discussion_r1186645237
 
 fixすることで修正をとりいれることもできます。
 
-### おわりに
+# おわりに
 参考記事を読んでもはまたっところは、nodeが使い慣れていなくてpackage.json用意で躓いた点と、PATの権限の付与と設定ぐらいでした。
 textlint+reviewdogのworkflow用意は簡単ながら効果が大きいのでこの設定で様子見しつつ執筆していきたいです。

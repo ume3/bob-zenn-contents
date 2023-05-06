@@ -7,18 +7,18 @@ published: true
 published_at: 2023-05-05 10:00
 ---
 
-## はじめに
+# はじめに
 [Zenn CLIで記事を書いてみました](https://zenn.dev/b0b/articles/zenn_cli_test_20230504)。せっかくGitHub経由で記事を書くので、校正をしながら文書を書きたいところです。
 
-### 参考記事
+## 参考記事
 - [GitHub ActionsでZennブログの校正を自動化してみた](https://zenn.dev/yuta28/articles/blog-lint-ci-reviewdog)
 
-### やったこと
+## やったこと
 校正と言えば、textlintですね。
 
 まずはtextlintをインストールして、実際に活用してみました。自動校正は次の機会にやります。
 
-#### textlintのルールセットのインストール
+### textlintのルールセットのインストール
 いろんなルールセットがあるので、参考記事をみながら必要そうなものをインストールしました。
 
 ```
@@ -52,7 +52,7 @@ npm install textlint-filter-rule-allowlist
 ├── textlint-rule-preset-smarthr
 ├── textlint-rule-prh
 ```
-#### textlintの動作確認
+### textlintの動作確認
 textlintが働いているかはruleを指定すると以下の動きをみることができます。
 
 ```
@@ -71,12 +71,12 @@ This pair mark is called 丸括弧（）                   ja-technical-writing/
 
 試しに適当なMarkDownファイルに適用してみたところ、上記の指摘が入りました。必要に応じて修正します。
 
-#### .textlintrcの設定
+### .textlintrcの設定
 参考記事をベースに用意したファイルは以下となります。
 
 https://github.com/ume3/bob-zenn-contents/blob/a44ff79da36356acecbeaef122b1b7c4e68d0496/.textlintrc
 
 動作確認をしつつ用意。適用具合は`npx textlint --print-config`。デフォルト設定も確認できます。
 
-### おわりに
+# おわりに
 これで手元のコマンドレベルですが、textlintで記事を校正できるようになりました。この記事も`--fix`で修正を適用しつつ完成させています。
