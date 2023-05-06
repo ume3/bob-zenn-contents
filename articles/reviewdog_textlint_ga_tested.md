@@ -53,8 +53,14 @@ personal access tokens (classic) であれば、以下を付与したPATを用�
 
 ![](/images/articles/miss-reviewdog.jpg)
 
-あとはコメントに沿って指摘事項を取り入れるか判断することができる状態になりました。
+> あとはコメントに沿って指摘事項を取り入れるか判断することができる状態になりました。
+
+上記のように、わざと間違えてみたところ以下のレビューが入りました。
+
+https://github.com/ume3/bob-zenn-contents/pull/10#discussion_r1186645237
+
+fixすることで修正をとりいれることもできます。
 
 ### おわりに
 参考記事を読んでもはまたっところは、nodeが使い慣れていなくてpackage.json用意で躓いた点と、PATの権限の付与と設定ぐらいでした。
-textlint+reviewdogのworkflow用意は簡単ながら効果が大きいのでこの設定で様子見して執筆していきたいです。
+textlint+reviewdogのworkflow用意は簡単ながら効果が大きいのでこの設定で様子見しつつ執筆していきたいです。
