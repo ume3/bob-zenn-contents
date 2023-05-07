@@ -8,12 +8,12 @@ published_at: 2023-05-08 10:00
 ---
 
 # はじめに
-textlint+reviewdog環境を用意してみました。今度は、VSCodeを使った執筆環境にしたかったので、vscode-textlintとZennのpluginを導入しました。その環境設定をまとめた記事になります。
+[textlint+reviewdog環境を用意](https://zenn.dev/b0b/articles/reviewdog_textlint_ga_tested)してみました。今度は、VSCodeを使った執筆環境を用意したかったので、vscode-textlintとZennのpluginを導入しました。その設定をまとめた記事になります。
 
 ## 想定環境
-- ローカルを想定
+- ローカル環境を想定
   - Mac(M1)
-  - VSCodeがあらかじめインストールおよび普段使しているとします
+  - VSCodeがあらかじめインストールおよび普段使をしているものとします
   - zennの拡張機能はブラウザ上での動作保証をしている点にご注意
 
 ## 参考記事
