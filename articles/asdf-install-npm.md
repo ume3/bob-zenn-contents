@@ -3,7 +3,7 @@ title: "asdfを使ってnpmをインストールしてからtextlintを導入す
 emoji: "🐈"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["asdf","npm"]
-published: false
+published: true
 ---
 
 # はじめに
