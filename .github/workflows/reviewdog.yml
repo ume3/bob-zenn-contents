@@ -29,7 +29,7 @@ jobs:
         run: npm install
 
       - name: Run textlint
-        run: npm run lint -- --format checkstyle -o textlint-report.xml || true
+        run: npx textlint articles/**/*.md -f checkstyle -o textlint-report.xml || true
 
       - name: Debug textlint report
         run: cat textlint-report.xml
