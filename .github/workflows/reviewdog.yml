@@ -29,23 +29,23 @@ jobs:
         run: npm install
 
       - name: Run textlint
-        run: npx textlint articles/**/*.md -f checkstyle -o textlint-report.xml || true
+        run: npx textlint articles/**/*.md --format rdjson -o textlint-report.json || true
 
       - name: Debug textlint report
-        run: cat textlint-report.xml
+        run: cat textlint-report.json
 
       - name: Install reviewdog
         run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
 
       - name: Run reviewdog with PR Review
         run: |
-          reviewdog -f=checkstyle \
+          reviewdog -f=rdjson \
           -name="textlint" \
           -reporter=github-pr-review \
           -level=warning \
           -filter-mode=added \
           -fail-on-error=false \
-          < textlint-report.xml
+          < textlint-report.json
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GA_REVEIWDOG_TOKEN }}
 
