@@ -1,4 +1,4 @@
-name: reviewdog
+name: reviewdog-suggester
 
 on:
   pull_request:
@@ -29,9 +29,6 @@ jobs:
         run: npm install
 
       - name: Run textlint
-        run: npx textlint articles/**/*.md > textlint-errors.txt || true
-
-      - name: Run textlint with fix
         run: npx textlint --fix articles/**/*.md || true
 
       - name: Generate diff
@@ -40,35 +37,12 @@ jobs:
       - name: Debug textlint report
         run: cat textlint-report.diff
 
-      - name: Debug textlint errors
-        run: cat textlint-errors.txt
-
-      - name: Install reviewdog
-        uses: reviewdog/action-setup@v1
+      - name: Run reviewdog suggester
+        uses: reviewdog/action-suggester@v1
         with:
-          reviewdog_version: latest
-
-      - name: Run reviewdog with PR Review for Suggestions
-        run: |
-          reviewdog -f=diff \
-          -name="textlint" \
-          -reporter=github-pr-review \
-          -level=warning \
-          -filter-mode=added \
-          -fail-on-error=false \
-          < textlint-report.diff
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run reviewdog with PR Review for Errors
-        run: |
-          reviewdog -efm="%f:%l:%c: %m" \
-          -name="textlint-errors" \
-          -reporter=github-pr-review \
-          -level=warning \
-          -filter-mode=added \
-          -fail-on-error=false \
-          < textlint-errors.txt
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: textlint
+          level: warning
+          filter_mode: diff_context
+          cleanup: true
 
