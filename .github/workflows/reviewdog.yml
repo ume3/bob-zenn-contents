@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  checks: write
 
 jobs:
   textlint:
@@ -36,7 +37,7 @@ jobs:
       - name: Install reviewdog
         run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: Run reviewdog with Code Suggestions
+      - name: Run reviewdog with PR Review
         run: |
           reviewdog -f=checkstyle \
           -name="textlint" \
