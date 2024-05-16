@@ -34,18 +34,22 @@ jobs:
       - name: Debug textlint report
         run: cat textlint-report.xml
 
-      - name: Reviewdog with PR Review
-        uses: reviewdog/action-reviewdog@v1
-        with:
-          github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
-          tool_name: textlint
-          level: warning
-          reporter: github-pr-review
-          filter_mode: added
-          fail_on_error: false
-          reviewdog_flags: "-f=checkstyle < textlint-report.xml"
+      - name: Install reviewdog
+        run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: Reviewdog Suggester
+      - name: Run reviewdog with PR Review
+        run: |
+          reviewdog -f=checkstyle \
+          -name="textlint" \
+          -reporter=github-pr-review \
+          -level=warning \
+          -filter-mode=added \
+          -fail-on-error=false \
+          < textlint-report.xml
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GA_REVEIWDOG_TOKEN }}
+
+      - name: Run reviewdog Suggester
         uses: reviewdog/action-suggester@v1
         with:
           github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
