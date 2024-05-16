@@ -1,12 +1,22 @@
 name: reviewdog
-on: [pull_request]
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   textlint:
     name: runner / textlint
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
       - name: Setup Node/npm
         uses: actions/setup-node@v3
@@ -26,11 +36,27 @@ jobs:
           restore-keys: |
             node-
 
-      - name: textlint-github-pr-review
-        uses: tsuyoshicho/action-textlint@v3
-        with:
-          github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
-          reporter: suggestion
-          level: warning
-          textlint_flags: "--diff '{book,articles}/**'"
+      - name: Install textlint
+        run: npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev
+
+      - name: Run textlint
+        run: npx textlint {book,articles}/** -f checkstyle -o textlint-report.xml || true
+
+      - name: Debug textlint report
+        run: cat textlint-report.xml
+
+      - name: Install reviewdog
+        run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run reviewdog with PR Review
+        run: |
+          reviewdog -f=checkstyle \
+          -name="textlint" \
+          -reporter=github-pr-review \
+          -level=warning \
+          -filter-mode=added \
+          -fail-on-error=false \
+          < textlint-report.xml
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GA_REVEIWDOG_TOKEN }}
 
