@@ -2,8 +2,7 @@ name: reviewdog
 
 on:
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
@@ -18,45 +17,28 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Node/npm
+      - name: Setup Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
 
-      # package-lock.json生成のため、npm installを実行する
       - name: Install Dependencies
         run: npm install
 
-      # キャッシュ取得
-      - name: cache-node-modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            node-
-
-      - name: Install textlint
-        run: npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev
-
       - name: Run textlint
-        run: npx textlint {book,articles}/** -f checkstyle -o textlint-report.xml || true
+        run: npm run lint -- --format checkstyle -o textlint-report.xml || true
 
       - name: Debug textlint report
         run: cat textlint-report.xml
 
-      - name: Install reviewdog
-        run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Run reviewdog with PR Review
-        run: |
-          reviewdog -f=checkstyle \
-          -name="textlint" \
-          -reporter=github-pr-review \
-          -level=warning \
-          -filter-mode=added \
-          -fail-on-error=false \
-          < textlint-report.xml
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GA_REVEIWDOG_TOKEN }}
+      - name: Reviewdog with PR Review
+        uses: reviewdog/action-suggester@v1
+        with:
+          github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
+          tool_name: textlint
+          level: warning
+          reporter: github-pr-review
+          filter_mode: added
+          fail_on_error: false
+          reviewdog_flags: "-f=checkstyle < textlint-report.xml"
 
