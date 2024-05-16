@@ -27,13 +27,13 @@ jobs:
             node-
 
       - name: Install textlint
-        run:  'npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev'
+        run: 'npm install textlint textlint-filter-rule-allowlist textlint-rule-preset-ja-technical-writing textlint-rule-preset-smarthr textlint-rule-prh --save-dev'
 
       - name: textlint-github-pr-review
         uses: tsuyoshicho/action-textlint@v3
         with:
           github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
-          reporter: github-pr-review
+          reporter: suggestion
           level: warning
-          textlint_flags: "{book,articles}/**"
+          textlint_flags: "--diff {book,articles}/**"
 
