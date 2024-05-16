@@ -40,7 +40,7 @@ jobs:
         run: |
           reviewdog -f=checkstyle \
           -name="textlint" \
-          -reporter=github-pr-suggest \
+          -reporter=github-pr-review \
           -level=warning \
           -filter-mode=added \
           -fail-on-error=false \
