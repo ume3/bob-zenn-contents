@@ -2,11 +2,14 @@ name: reviewdog
 
 on:
   pull_request:
+    branches:
+      - main  # PRがトリガーされるブランチ
     types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
   pull-requests: write
+  checks: write
 
 jobs:
   textlint:
@@ -32,7 +35,7 @@ jobs:
         run: cat textlint-report.xml
 
       - name: Reviewdog with PR Review
-        uses: reviewdog/action-suggester@v1
+        uses: reviewdog/action-reviewdog@v1
         with:
           github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
           tool_name: textlint
@@ -41,4 +44,11 @@ jobs:
           filter_mode: added
           fail_on_error: false
           reviewdog_flags: "-f=checkstyle < textlint-report.xml"
+
+      - name: Reviewdog Suggester
+        uses: reviewdog/action-suggester@v1
+        with:
+          github_token: ${{ secrets.GA_REVEIWDOG_TOKEN }}
+          tool_name: textlint
+          level: warning
 
