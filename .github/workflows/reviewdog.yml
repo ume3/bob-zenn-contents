@@ -3,12 +3,78 @@ name: reviewdog
 on:
   pull_request:
     types: [synchronize, ready_for_review, review_requested, review_dismissed]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+  issues: write
 
 jobs:
-  call-review:
-    uses: ./.github/workflows/common-review.yml
-    with:
-      config-path: 'articles/**/*.md'
-    secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+  lint-and-review:
+    if: |
+      (github.event_name == 'pull_request' && 
+      (github.event.action == 'synchronize' || 
+       github.event.action == 'ready_for_review' || 
+       github.event.action == 'review_requested' || 
+       github.event.action == 'review_dismissed')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'レビュー依頼'))
+    name: Lint and Review with textlint and reviewdog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run textlint
+        run: npx textlint articles/**/*.md --format checkstyle > textlint-report.xml || true
+
+      - name: Run textlint with fix
+        run: npx textlint --fix articles/**/*.md || true
+
+      - name: Generate diff
+        run: git diff > textlint-report.diff
+
+      - name: Debug textlint report
+        run: cat textlint-report.xml
+
+      - name: Debug diff report
+        run: cat textlint-report.diff
+
+      - name: Install reviewdog
+        run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run reviewdog for diff suggestions
+        run: |
+          reviewdog -f=diff \
+          -name="textlint-suggester" \
+          -reporter=github-pr-review \
+          -level=warning \
+          -filter-mode=added \
+          -fail-on-error=false \
+          < textlint-report.diff
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run reviewdog for textlint errors
+        run: |
+          reviewdog -f=checkstyle \
+          -name="textlint-errors" \
+          -reporter=github-pr-review \
+          -level=warning \
+          -filter-mode=added \
+          -fail-on-error=false \
+          < textlint-report.xml
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
