@@ -3,14 +3,20 @@ name: reviewdog
 on:
   pull_request:
     types: [synchronize, ready_for_review, review_requested, review_dismissed]
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: write
   pull-requests: write
   checks: write
+  issues: write
 
 jobs:
   lint-and-review:
+    if: |
+      (github.event_name == 'pull_request' && github.event.action in ['synchronize', 'ready_for_review', 'review_requested', 'review_dismissed']) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'レビュー依頼'))
     name: lint and review with textlint and reviewdog
     runs-on: ubuntu-latest
 
