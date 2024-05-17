@@ -2,9 +2,7 @@ name: reviewdog
 
 on:
   pull_request:
-    branches:
-      - main  # PRがトリガーされるブランチ
-    types: [opened, synchronize, reopened]
+    types: [synchronize, ready_for_review, review_requested, review_dismissed]
 
 permissions:
   contents: write
