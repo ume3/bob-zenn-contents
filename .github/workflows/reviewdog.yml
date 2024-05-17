@@ -8,5 +8,7 @@ jobs:
   call-review:
     uses: ./.github/workflows/common-review.yml
     with:
+      config-path: 'articles/**/*.md'
+    secrets:
       github_token: ${{ secrets.GITHUB_TOKEN }}
 

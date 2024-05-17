@@ -3,9 +3,12 @@ name: common-review
 on:
   workflow_call:
     inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
       github_token:
         required: true
-        type: secret
 
 jobs:
   lint-and-review:
@@ -25,10 +28,10 @@ jobs:
         run: npm install
 
       - name: Run textlint
-        run: npx textlint articles/**/*.md --format checkstyle > textlint-report.xml || true
+        run: npx textlint ${{ inputs['config-path'] }} --format checkstyle > textlint-report.xml || true
 
       - name: Run textlint with fix
-        run: npx textlint --fix articles/**/*.md || true
+        run: npx textlint --fix ${{ inputs['config-path'] }} || true
 
       - name: Generate diff
         run: git diff > textlint-report.diff
@@ -52,7 +55,7 @@ jobs:
           -fail-on-error=false \
           < textlint-report.diff
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
       - name: Run reviewdog for textlint errors
         run: |
@@ -64,5 +67,5 @@ jobs:
           -fail-on-error=false \
           < textlint-report.xml
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
