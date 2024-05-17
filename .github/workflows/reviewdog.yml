@@ -14,14 +14,14 @@ permissions:
 
 jobs:
   lint-and-review:
-    if: |
+    if: >
       github.event_name == 'pull_request' && (
         github.event.action == 'synchronize' ||
         github.event.action == 'ready_for_review' ||
         github.event.action == 'review_requested' ||
         github.event.action == 'review_dismissed'
       ) ||
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'レビュー依頼'))
+      (github.event_name == 'issue_comment' && github.event.comment.body.includes('レビュー依頼'))
     name: lint and review with textlint and reviewdog
     runs-on: ubuntu-latest
 
@@ -78,8 +78,4 @@ jobs:
           < textlint-report.xml
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Debug Comment Body
-        if: github.event_name == 'issue_comment'
-        run: echo "Comment body: ${{ github.event.comment.body }}"
 
