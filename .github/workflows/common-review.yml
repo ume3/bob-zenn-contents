@@ -1,28 +1,15 @@
-name: reviewdog
+name: common-review
 
 on:
-  pull_request:
-    types: [synchronize, ready_for_review, review_requested, review_dismissed]
-  issue_comment:
-    types: [created]
-
-permissions:
-  contents: write
-  pull-requests: write
-  checks: write
-  issues: write
+  workflow_call:
+    inputs:
+      github_token:
+        required: true
+        type: string
 
 jobs:
   lint-and-review:
-    if: >
-      github.event_name == 'pull_request' && (
-        github.event.action == 'synchronize' ||
-        github.event.action == 'ready_for_review' ||
-        github.event.action == 'review_requested' ||
-        github.event.action == 'review_dismissed'
-      ) ||
-      (github.event_name == 'issue_comment' && github.event.comment.body.includes('レビュー依頼'))
-    name: lint and review with textlint and reviewdog
+    name: Lint and Review with textlint and reviewdog
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +52,7 @@ jobs:
           -fail-on-error=false \
           < textlint-report.diff
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
 
       - name: Run reviewdog for textlint errors
         run: |
@@ -77,5 +64,5 @@ jobs:
           -fail-on-error=false \
           < textlint-report.xml
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
 
