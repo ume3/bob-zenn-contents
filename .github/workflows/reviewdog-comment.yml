@@ -1,0 +1,19 @@
+name: reviewdog-comment
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+  issues: write
+
+jobs:
+  call-review:
+    if: ${{ github.event.comment.body.includes('レビュー依頼') }}
+    uses: ./.github/workflows/common-review.yml
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+

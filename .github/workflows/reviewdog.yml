@@ -1,0 +1,12 @@
+name: reviewdog
+
+on:
+  pull_request:
+    types: [synchronize, ready_for_review, review_requested, review_dismissed]
+
+jobs:
+  call-review:
+    uses: ./.github/workflows/common-review.yml
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+
