@@ -15,10 +15,10 @@ permissions:
 jobs:
   lint-and-review:
     if: |
-      (github.event_name == 'pull_request' && 
-      (github.event.action == 'synchronize' || 
-       github.event.action == 'ready_for_review' || 
-       github.event.action == 'review_requested' || 
+      (github.event_name == 'pull_request' &&
+      (github.event.action == 'synchronize' ||
+       github.event.action == 'ready_for_review' ||
+       github.event.action == 'review_requested' ||
        github.event.action == 'review_dismissed')) ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'レビュー依頼'))
     name: Lint and Review with textlint and reviewdog
