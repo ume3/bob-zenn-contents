@@ -4,10 +4,12 @@ on:
   workflow_call:
     inputs:
       config-path:
+        description: 'Path to the files to lint'
         required: true
         type: string
     secrets:
       github_token:
+        description: 'GitHub Token'
         required: true
 
 jobs:
@@ -28,10 +30,10 @@ jobs:
         run: npm install
 
       - name: Run textlint
-        run: npx textlint ${{ inputs['config-path'] }} --format checkstyle > textlint-report.xml || true
+        run: npx textlint "${{ inputs.config-path }}" --format checkstyle > textlint-report.xml || true
 
       - name: Run textlint with fix
-        run: npx textlint --fix ${{ inputs['config-path'] }} || true
+        run: npx textlint --fix "${{ inputs.config-path }}" || true
 
       - name: Generate diff
         run: git diff > textlint-report.diff
