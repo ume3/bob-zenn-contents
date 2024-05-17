@@ -1,4 +1,4 @@
-name: reviewdog-comments
+name: reviewdog
 
 on:
   pull_request:
@@ -12,8 +12,8 @@ permissions:
   checks: write
 
 jobs:
-  textlint:
-    name: runner / textlint
+  lint-and-review:
+    name: lint and review with textlint and reviewdog
     runs-on: ubuntu-latest
 
     steps:
@@ -31,16 +31,37 @@ jobs:
       - name: Run textlint
         run: npx textlint articles/**/*.md --format checkstyle > textlint-report.xml || true
 
+      - name: Run textlint with fix
+        run: npx textlint --fix articles/**/*.md || true
+
+      - name: Generate diff
+        run: git diff > textlint-report.diff
+
       - name: Debug textlint report
         run: cat textlint-report.xml
+
+      - name: Debug diff report
+        run: cat textlint-report.diff
 
       - name: Install reviewdog
         run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
 
+      - name: Run reviewdog for diff suggestions
+        run: |
+          reviewdog -f=diff \
+          -name="textlint-suggester" \
+          -reporter=github-pr-review \
+          -level=warning \
+          -filter-mode=added \
+          -fail-on-error=false \
+          < textlint-report.diff
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run reviewdog for textlint errors
         run: |
           reviewdog -f=checkstyle \
-          -name="textlint" \
+          -name="textlint-errors" \
           -reporter=github-pr-review \
           -level=warning \
           -filter-mode=added \
