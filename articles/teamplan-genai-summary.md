@@ -3,7 +3,7 @@ title: "生成AIツールのチームプラン導入で抑えておきたいポ�
 emoji: "🔍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["ai", "management"]
-published: false
+published: true
 ---
 
 ## はじめに
