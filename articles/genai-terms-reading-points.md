@@ -45,7 +45,7 @@ published: true
 
 設定確認箇所は以下の通りです。
 
-![Cursorの設定画面](/images/articles/cursor-settings.png)
+![](/images/articles/cursor-settings.png)
 
 1. Cursorの設定画面を開く（画面右上の歯車アイコンをクリックするか、`Ctrl + Shift + J`（Windows/Linux）または`Cmd + Shift + J`（Mac）を押す）
 2. 設定画面で「General」タブを選択
