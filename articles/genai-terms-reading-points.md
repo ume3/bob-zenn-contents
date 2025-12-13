@@ -45,7 +45,7 @@ published: true
 
 設定確認箇所は以下の通りです。
 
-![Cursorの設定画面](./images/articles/cursor-settings.png)
+![Cursorの設定画面](/images/articles/cursor-settings.png)
 
 1. Cursorの設定画面を開く（画面右上の歯車アイコンをクリックするか、`Ctrl + Shift + J`（Windows/Linux）または`Cmd + Shift + J`（Mac）を押す）
 2. 設定画面で「General」タブを選択
@@ -80,7 +80,7 @@ Claudeのケースのように、途中でポリシーが変わったり、多�
 
 > If you don't want your Interactions used in this way, navigate to settings to change your preference on how such data is used.
 
-![Antigravityの設定画面](./images/articles/antigravity-settings.png)
+![Antigravityの設定画面](/images/articles/Antigravity-settings.png)
 
 インストール時の同意と実際の設定画面の両方を確認することが重要です。インストール時に同意したとしても、後から設定画面で変更できることを理解しておく必要があります。
 
