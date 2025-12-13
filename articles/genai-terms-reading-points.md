@@ -2,7 +2,7 @@
 title: "生成AIツールの利用規約の読み進め方"
 emoji: "📋"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["ai", "privacy"]
+topics: ["ai", "privacy", "ポリシー"]
 publication_name: "genda_jp"
 published: true
 ---
