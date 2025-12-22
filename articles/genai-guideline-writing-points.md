@@ -5,6 +5,7 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["ai", "management", "guideline"]
 publication_name: "genda_jp"
 published: true
+published_at: 2025-12-23 00:05
 ---
 
 ## はじめに
